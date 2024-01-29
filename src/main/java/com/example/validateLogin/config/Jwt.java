@@ -42,7 +42,7 @@ public class Jwt {
      * @param subject
      * @return
      */
-    public String create(String id, String subject,String email) {
+    public String create(String id, String subject, String email) {
 
         // The JWT signature algorithm used to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -60,7 +60,7 @@ public class Jwt {
                 .setIssuedAt(now
                 ).setSubject(subject)
                 .setIssuer(issuer)
-                .claim("email",email)
+                .claim("email", email)
                 .signWith(signatureAlgorithm, signingKey);
 
         if (ttlMillis >= 0) {
@@ -144,7 +144,6 @@ public class Jwt {
         }
         return claims.getId();
     }*/
-
     public ResponseEntity<String> getKey(String jwt) {
         try {
             Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(key))

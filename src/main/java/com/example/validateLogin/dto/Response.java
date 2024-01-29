@@ -13,8 +13,7 @@ public class Response {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private String token;
-
-
+    private String password;
+    private String id;
 }

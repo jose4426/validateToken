@@ -8,10 +8,8 @@ import lombok.Getter;
 @Getter
 @Builder
 public class ResponseLogin {
-    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private String token;
 }
