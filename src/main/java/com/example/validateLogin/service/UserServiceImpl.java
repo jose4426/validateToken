@@ -23,9 +23,11 @@ public class UserServiceImpl implements UserService {
     final private Jwt jwt;
 
     @Override
-    public List<Response> findAll() {
+    public List<Response> findAll(String token) {
 
-        return mapper.entityToResponses(repository.findAll());
+       if (jwt.validateToken(token) == true ){
+           return mapper.entityToResponses(repository.findAll());
+       }else return null;
     }
 
     @Override
@@ -73,5 +75,7 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+
 
 }

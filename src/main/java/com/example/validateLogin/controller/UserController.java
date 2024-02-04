@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/auth")
 @RequiredArgsConstructor
@@ -34,5 +36,12 @@ public class UserController {
         return service.validateLogin(request);
 
     }
+    @GetMapping(path = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    List<Response> getAll(@RequestHeader ("Authorization") String token) {
 
+        return service.findAll(token);
+
+    }
 }

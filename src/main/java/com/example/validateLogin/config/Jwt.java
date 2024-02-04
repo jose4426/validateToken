@@ -82,10 +82,20 @@ public class Jwt {
     public String getValue(String jwt) {
         // This line will throw an exception if it is not a signed JWS (as
         // expected)
+
         Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(key))
                 .parseClaimsJws(jwt).getBody();
 
         return claims.getSubject();
+    }
+    public boolean validateToken(String token) {
+        token = token.substring(7);
+        try {
+            Jwts.parser().setSigningKey(key).parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException("token no valido");
+        }
     }
 
     /*public User findCurrentUser(String jwtToken) {
@@ -103,11 +113,12 @@ public class Jwt {
         String email = claims.get("email", String.class);
         return userService.findByEmail(email);
     }*/
-    public Response findCurrentUser(String jwtToken) {
+  /*  public Response validateToken(String token) {
+        token = token.substring(7);
         try {
             Claims claims = Jwts.parser()
                     .setSigningKey(DatatypeConverter.parseBase64Binary(key))
-                    .parseClaimsJws(jwtToken)
+                    .parseClaimsJws(token)
                     .getBody();
 
             String email = claims.get("email", String.class);
@@ -122,7 +133,7 @@ public class Jwt {
             // Otros errores
             throw new UnauthorizedException(ex.getMessage());
         }
-    }
+    }*/
 
     /**
      * Method to validate and read the JWT

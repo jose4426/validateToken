@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public interface UserService {
-    List<Response> findAll();
+    List<Response> findAll(String token);
     Response findById(Long id);
     void delete(Long id);
     ResponseRegister register(Request request);
