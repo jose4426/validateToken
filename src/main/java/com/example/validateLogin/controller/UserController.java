@@ -8,40 +8,28 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("api/user")
 @RequiredArgsConstructor
 public class UserController {
     final private UserService service;
 
-    //@Operation(summary = "Save User mobil")
-    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public ResponseRegister saveUser(@RequestBody Request request) {
-
-        ResponseRegister response = service.register(request);
-        return response;
-
-    }
-
-    //@Operation(summary = "User mobil login")
-    @PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    ResponseLogin UserLogin(@RequestBody LoginRequest request) {
-
-
-        return service.validateLogin(request);
-
-    }
-    @GetMapping(path = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    List<Response> getAll(@RequestHeader ("Authorization") String token) {
+    List<Response> getAll(@RequestHeader( value ="Authorization") String token) {
 
         return service.findAll(token);
 
     }
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    Response getById(@PathVariable(value = "id") Long id){
+
+       return service.findById(id);
+
+    }
+
+
 }
